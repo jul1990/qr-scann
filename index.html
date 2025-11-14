@@ -12,8 +12,20 @@ body {
   text-align: center;
   color: #fff;
   overflow: hidden;
-  background: url('https://i.imgur.com/JulPozadina.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: linear-gradient(135deg, #1e1e2f, #4b1e6f); /* misteriozni gradijent */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Slika u sredini */
+.center-image {
+  margin-top: 80px; /* pomeranje sa vrha */
+  width: 250px;      /* veličina slike */
+  border-radius: 15px;
+  box-shadow: 0 0 20px #ff00ff;
 }
 
 /* Efekat svetlucavih zvezda */
@@ -34,7 +46,7 @@ body {
 
 /* Odbrojavanje */
 .countdown {
-  font-size: 4em; /* Veći font za mobilni */
+  font-size: 4em; 
   color: #ff00ff;
   text-shadow: 0 0 10px #ff00ff;
   animation: glow 1s infinite alternate;
@@ -50,15 +62,15 @@ body {
 .teaser, .content { display: none; }
 
 h1 {
-  font-size: 3em; /* Veći naslov */
+  font-size: 2.5em;
   text-shadow: 0 0 15px #ff00ff;
-  margin-top: 50px;
+  margin-top: 20px; /* pomereno niže */
 }
 
 h2 {
-  font-size: 2.5em;
+  font-size: 2em;
   text-shadow: 0 0 15px #00ffff;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 /* Dugmad */
@@ -66,8 +78,8 @@ button {
   background: #ff00ff;
   border: none;
   color: #fff;
-  padding: 20px 40px;
-  font-size: 1.5em; /* Veći za mobilni */
+  padding: 15px 30px;
+  font-size: 1.5em; 
   border-radius: 12px;
   box-shadow: 0 0 15px #ff00ff;
   cursor: pointer;
@@ -83,6 +95,9 @@ button:hover {
 
 <h1>Tajanstveno iznenađenje</h1>
 
+<!-- Slika u sredini -->
+<img class="center-image" src="https://i.imgur.com/JulPozadina.jpg" alt="Jul">
+
 <div class="teaser">
   <p style="font-size:1.5em;">Ne možemo ti još otkriti iznenađenje…</p>
   <div class="countdown" id="countdown"></div>
@@ -97,7 +112,7 @@ button:hover {
 
 <script>
 // Generisanje zvezda
-const starsCount = 120; // više zvezda za efekat
+const starsCount = 120;
 for(let i=0;i<starsCount;i++){
   let star = document.createElement('div');
   star.className = 'star';
