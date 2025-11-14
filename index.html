@@ -17,16 +17,34 @@ body {
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  perspective: 1000px;
 }
 
 /* Image centrale */
 .center-image {
   margin-top: 100px;
-  width: 350px; /* veća slika za mobilne */
+  width: 350px;
   border-radius: 15px;
-  box-shadow: 0 0 35px #ff00ff;
+  box-shadow: 0 0 40px 10px #ff00ff;
   position: relative;
   z-index: 2;
+}
+
+/* Sparkles autour de l'image */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: sparkleAnim linear infinite;
+}
+
+@keyframes sparkleAnim {
+  0% { transform: translate(0,0) scale(0.5); opacity:0; }
+  50% { opacity:1; }
+  100% { transform: translate(-50px,-50px) scale(1); opacity:0; }
 }
 
 /* Étoiles scintillantes */
@@ -45,32 +63,37 @@ body {
 
 /* Compte à rebours */
 .countdown {
-  font-size: 6em; /* veći font */
+  font-size: 6em;
   color: #ff00ff;
-  text-shadow: 0 0 20px #ff00ff;
+  text-shadow: 0 0 25px #ff00ff;
   animation: glow 1s infinite alternate;
   margin: 50px 0;
   z-index: 4;
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 20px #ff00ff; }
-  to { text-shadow: 0 0 50px #ff00ff; }
+  from { text-shadow: 0 0 25px #ff00ff; }
+  to { text-shadow: 0 0 60px #ff00ff; }
 }
 
 /* Teaser et contenu */
 .teaser, .content { display: none; }
 
 h1 {
-  font-size: 3.5em; /* veći naslov */
-  text-shadow: 0 0 25px #ff00ff;
+  font-size: 3.5em;
+  text-shadow: 0 0 30px #ff00ff;
   margin-top: 20px;
-  z-index: 4;
+  animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from { text-shadow: 0 0 20px #ff00ff; }
+  to { text-shadow: 0 0 60px #ff00ff; }
 }
 
 h2 {
-  font-size: 2.8em; /* veći podnaslov */
-  text-shadow: 0 0 25px #00ffff;
+  font-size: 2.8em;
+  text-shadow: 0 0 30px #00ffff;
   margin-top: 20px;
   z-index: 4;
 }
@@ -80,17 +103,17 @@ button {
   background: #ff00ff;
   border: none;
   color: #fff;
-  padding: 22px 45px; /* veći button */
+  padding: 22px 45px;
   font-size: 1.8em; 
   border-radius: 12px;
-  box-shadow: 0 0 25px #ff00ff;
+  box-shadow: 0 0 30px #ff00ff;
   cursor: pointer;
   transition: 0.3s;
   margin-top: 25px;
   z-index: 4;
 }
 button:hover {
-  box-shadow: 0 0 50px #ff00ff;
+  box-shadow: 0 0 60px #ff00ff;
 }
 </style>
 </head>
@@ -101,6 +124,9 @@ button:hover {
 <!-- Étoiles arrière -->
 <div id="stars-back"></div>
 
+<!-- Sparkles autour de l'image -->
+<div id="sparkles"></div>
+
 <!-- Image centrale -->
 <img class="center-image" src="téléchargement (10).jfif" alt="Jul">
 
@@ -108,7 +134,7 @@ button:hover {
 <div id="stars-front"></div>
 
 <div class="teaser">
-  <p style="font-size:2em;">Nous ne pouvons pas encore vous révéler la surprise…</p>
+  <p style="font-size:2em;" id="mystery-msg">Quelque chose de magique arrive… ✨</p>
   <div class="countdown" id="countdown"></div>
   <button disabled>Ouvre le 5 mai à 20h</button>
 </div>
@@ -127,7 +153,7 @@ for(let i=0;i<starsBackCount;i++){
   star.className = 'star-back';
   star.style.top = Math.random()*100 + '%';
   star.style.left = Math.random()*100 + '%';
-  let size = Math.random()*4+2; // veće zvezde
+  let size = Math.random()*4+2;
   star.style.width = size + 'px';
   star.style.height = size + 'px';
   star.style.animationDuration = (Math.random()*3+1)+'s';
@@ -141,12 +167,36 @@ for(let i=0;i<starsFrontCount;i++){
   star.className = 'star-front';
   star.style.top = Math.random()*100 + '%';
   star.style.left = Math.random()*100 + '%';
-  let size = Math.random()*4+2; // veće zvezde
+  let size = Math.random()*4+2;
   star.style.width = size + 'px';
   star.style.height = size + 'px';
   star.style.animationDuration = (Math.random()*3+1)+'s';
   document.body.appendChild(star);
 }
+
+// Sparkles autour de l'image
+const sparkleCount = 30;
+for(let i=0;i<sparkleCount;i++){
+  let sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.style.top = (100 + Math.random()*60) + 'px';
+  sparkle.style.left = (window.innerWidth/2 + Math.random()*200 - 100) + 'px';
+  sparkle.style.animationDuration = (Math.random()*2+1)+'s';
+  document.getElementById('sparkles').appendChild(sparkle);
+}
+
+// Messages mystérieux qui changent
+const messages = [
+  "Quelque chose de magique arrive… ✨",
+  "Prépare-toi pour la surprise ! 🌙",
+  "Reste attentif à 20h… 🔮",
+  "Le secret sera bientôt révélé… ✨",
+];
+let msgIndex = 0;
+setInterval(()=>{
+  msgIndex = (msgIndex + 1) % messages.length;
+  document.getElementById('mystery-msg').innerText = messages[msgIndex];
+}, 4000);
 
 // Compte à rebours
 function updateCountdown() {
