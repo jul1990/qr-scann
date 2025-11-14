@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Surprise Mystérieuse</title>
 <style>
-/* Opšte postavke */
 body {
   margin: 0;
   padding: 0;
@@ -22,14 +21,12 @@ body {
   perspective: 1000px;
 }
 
-/* Animacija pozadinskog gradienta */
 @keyframes bgGradient {
   0% { background: linear-gradient(135deg, #1e1e2f, #4b1e6f); }
   50% { background: linear-gradient(135deg, #2c1e3f, #6a1e8f); }
   100% { background: linear-gradient(135deg, #1e1e2f, #4b1e6f); }
 }
 
-/* Naslov */
 h1 {
   font-size: 4em;
   text-shadow: 0 0 35px #ff00ff;
@@ -42,17 +39,15 @@ h1 {
   to { text-shadow: 0 0 60px #ff00ff; }
 }
 
-/* Slika Jul */
 .center-image {
   margin-top: 100px;
-  width: 400px; /* veća slika */
+  width: 400px;
   border-radius: 15px;
   box-shadow: 0 0 50px 15px #ff00ff;
   position: relative;
   z-index: 2;
 }
 
-/* Sparkle efekti oko slike */
 .sparkle {
   position: absolute;
   width: 5px;
@@ -69,7 +64,6 @@ h1 {
   100% { transform: translate(-60px,-60px) scale(1); opacity:0; }
 }
 
-/* Zvezde */
 .star-back, .star-front {
   position: absolute;
   background: white;
@@ -83,9 +77,8 @@ h1 {
   50% { opacity: 1; }
 }
 
-/* Odbrojavanje */
 .countdown {
-  font-size: 6.5em; /* veći font */
+  font-size: 6.5em;
   color: #ff00ff;
   text-shadow: 0 0 30px #ff00ff;
   animation: glow 1s infinite alternate;
@@ -98,17 +91,15 @@ h1 {
   to { text-shadow: 0 0 70px #ff00ff; }
 }
 
-/* Teaser i content */
 .teaser, .content { display: none; }
 
 h2 {
-  font-size: 3em; /* veći podnaslov */
+  font-size: 3em;
   text-shadow: 0 0 30px #00ffff;
   margin-top: 20px;
   z-index: 4;
 }
 
-/* Dugmad */
 button {
   background: #ff00ff;
   border: none;
@@ -122,13 +113,22 @@ button {
   margin-top: 25px;
   z-index: 4;
 }
+
 button:hover {
   box-shadow: 0 0 70px #ff00ff;
 }
 
-/* Poruke misteriozne */
 #mystery-msg {
   font-size: 2.2em;
+}
+
+@media (max-width: 768px){
+  h1 { font-size: 3em; }
+  h2 { font-size: 2.2em; }
+  .countdown { font-size: 4em; }
+  button { font-size: 1.5em; padding: 15px 35px; }
+  .center-image { width: 300px; }
+  #mystery-msg { font-size: 1.6em; }
 }
 </style>
 </head>
@@ -136,13 +136,9 @@ button:hover {
 
 <h1>Surprise Mystérieuse</h1>
 
-<!-- Zvezde -->
 <div id="stars-back"></div>
-
-<!-- Sparkles -->
 <div id="sparkles"></div>
 
-<!-- Slika Jul -->
 <img class="center-image" src="téléchargement (10).jfif" alt="Jul">
 
 <div id="stars-front"></div>
@@ -150,7 +146,7 @@ button:hover {
 <div class="teaser">
   <p id="mystery-msg">Quelque chose de magique arrive… ✨</p>
   <div class="countdown" id="countdown"></div>
-  <button disabled>Ouvre le 5 mai à 20h</button>
+  <button disabled>Ouvre le 15 mai à 19h</button>
 </div>
 
 <div class="content">
@@ -203,7 +199,7 @@ for(let i=0;i<sparkleCount;i++){
 const messages = [
   "Quelque chose de magique arrive… ✨",
   "Prépare-toi pour la surprise ! 🌙",
-  "Reste attentif à 20h… 🔮",
+  "Reste attentif à 19h… 🔮",
   "Le secret sera bientôt révélé… ✨",
 ];
 let msgIndex = 0;
@@ -212,10 +208,10 @@ setInterval(()=>{
   document.getElementById('mystery-msg').innerText = messages[msgIndex];
 }, 4000);
 
-// Countdown
+// Countdown sa automatskim iznenađenjem tačno u 19:00 15. maja 2026
 function updateCountdown() {
     const now = new Date();
-    const target = new Date("May 5, 2026 20:00:00");
+    const target = new Date("May 15, 2026 19:00:00");
     const diff = target - now;
 
     if(diff > 0) {
