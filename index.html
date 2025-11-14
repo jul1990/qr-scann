@@ -10,9 +10,10 @@ body {
   padding: 0;
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background: linear-gradient(135deg, #1e1e2f, #4b1e6f);
   color: #fff;
   overflow: hidden;
+  background: url('https://i.imgur.com/JulPozadina.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 /* Efekat svetlucavih zvezda */
@@ -33,35 +34,48 @@ body {
 
 /* Odbrojavanje */
 .countdown {
-  font-size: 3em;
+  font-size: 4em; /* Veći font za mobilni */
   color: #ff00ff;
-  text-shadow: 0 0 5px #ff00ff;
+  text-shadow: 0 0 10px #ff00ff;
   animation: glow 1s infinite alternate;
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 5px #ff00ff; }
-  to { text-shadow: 0 0 20px #ff00ff; }
+  from { text-shadow: 0 0 10px #ff00ff; }
+  to { text-shadow: 0 0 30px #ff00ff; }
 }
 
 /* Teaser i sadržaj */
 .teaser, .content { display: none; }
+
+h1 {
+  font-size: 3em; /* Veći naslov */
+  text-shadow: 0 0 15px #ff00ff;
+  margin-top: 50px;
+}
+
+h2 {
+  font-size: 2.5em;
+  text-shadow: 0 0 15px #00ffff;
+  margin-top: 40px;
+}
 
 /* Dugmad */
 button {
   background: #ff00ff;
   border: none;
   color: #fff;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ff00ff;
+  padding: 20px 40px;
+  font-size: 1.5em; /* Veći za mobilni */
+  border-radius: 12px;
+  box-shadow: 0 0 15px #ff00ff;
   cursor: pointer;
   transition: 0.3s;
+  margin-top: 20px;
 }
 button:hover {
-  box-shadow: 0 0 25px #ff00ff;
+  box-shadow: 0 0 35px #ff00ff;
 }
 </style>
 </head>
@@ -70,20 +84,20 @@ button:hover {
 <h1>Tajanstveno iznenađenje</h1>
 
 <div class="teaser">
-  <p>Ne možemo ti još otkriti iznenađenje…</p>
+  <p style="font-size:1.5em;">Ne možemo ti još otkriti iznenađenje…</p>
   <div class="countdown" id="countdown"></div>
   <button disabled>Otvara se 5. maja 20h</button>
 </div>
 
 <div class="content">
   <h2>🎉 Sada je vreme! 🎉</h2>
-  <p>Učestvuj u nagradnoj igri i osvoji ekskluzivni poklon!</p>
+  <p style="font-size:1.5em;">Učestvuj u nagradnoj igri i osvoji ekskluzivni poklon!</p>
   <button onclick="alert('Čestitamo! 🎁')">Učestvuj</button>
 </div>
 
 <script>
 // Generisanje zvezda
-const starsCount = 100;
+const starsCount = 120; // više zvezda za efekat
 for(let i=0;i<starsCount;i++){
   let star = document.createElement('div');
   star.className = 'star';
