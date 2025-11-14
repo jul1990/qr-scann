@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Surprise Mystérieuse</title>
 <style>
+/* Opšte postavke */
 body {
   margin: 0;
   padding: 0;
@@ -17,24 +18,45 @@ body {
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  animation: bgGradient 20s infinite alternate;
   perspective: 1000px;
 }
 
-/* Image centrale */
+/* Animacija pozadinskog gradienta */
+@keyframes bgGradient {
+  0% { background: linear-gradient(135deg, #1e1e2f, #4b1e6f); }
+  50% { background: linear-gradient(135deg, #2c1e3f, #6a1e8f); }
+  100% { background: linear-gradient(135deg, #1e1e2f, #4b1e6f); }
+}
+
+/* Naslov */
+h1 {
+  font-size: 4em;
+  text-shadow: 0 0 35px #ff00ff;
+  margin-top: 20px;
+  animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from { text-shadow: 0 0 20px #ff00ff; }
+  to { text-shadow: 0 0 60px #ff00ff; }
+}
+
+/* Slika Jul */
 .center-image {
   margin-top: 100px;
-  width: 350px;
+  width: 400px; /* veća slika */
   border-radius: 15px;
-  box-shadow: 0 0 40px 10px #ff00ff;
+  box-shadow: 0 0 50px 15px #ff00ff;
   position: relative;
   z-index: 2;
 }
 
-/* Sparkles autour de l'image */
+/* Sparkle efekti oko slike */
 .sparkle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: #fff;
   border-radius: 50%;
   opacity: 0.7;
@@ -44,10 +66,10 @@ body {
 @keyframes sparkleAnim {
   0% { transform: translate(0,0) scale(0.5); opacity:0; }
   50% { opacity:1; }
-  100% { transform: translate(-50px,-50px) scale(1); opacity:0; }
+  100% { transform: translate(-60px,-60px) scale(1); opacity:0; }
 }
 
-/* Étoiles scintillantes */
+/* Zvezde */
 .star-back, .star-front {
   position: absolute;
   background: white;
@@ -61,11 +83,11 @@ body {
   50% { opacity: 1; }
 }
 
-/* Compte à rebours */
+/* Odbrojavanje */
 .countdown {
-  font-size: 6em;
+  font-size: 6.5em; /* veći font */
   color: #ff00ff;
-  text-shadow: 0 0 25px #ff00ff;
+  text-shadow: 0 0 30px #ff00ff;
   animation: glow 1s infinite alternate;
   margin: 50px 0;
   z-index: 4;
@@ -73,47 +95,40 @@ body {
 
 @keyframes glow {
   from { text-shadow: 0 0 25px #ff00ff; }
-  to { text-shadow: 0 0 60px #ff00ff; }
+  to { text-shadow: 0 0 70px #ff00ff; }
 }
 
-/* Teaser et contenu */
+/* Teaser i content */
 .teaser, .content { display: none; }
 
-h1 {
-  font-size: 3.5em;
-  text-shadow: 0 0 30px #ff00ff;
-  margin-top: 20px;
-  animation: pulseGlow 2s infinite alternate;
-}
-
-@keyframes pulseGlow {
-  from { text-shadow: 0 0 20px #ff00ff; }
-  to { text-shadow: 0 0 60px #ff00ff; }
-}
-
 h2 {
-  font-size: 2.8em;
+  font-size: 3em; /* veći podnaslov */
   text-shadow: 0 0 30px #00ffff;
   margin-top: 20px;
   z-index: 4;
 }
 
-/* Boutons */
+/* Dugmad */
 button {
   background: #ff00ff;
   border: none;
   color: #fff;
-  padding: 22px 45px;
-  font-size: 1.8em; 
+  padding: 25px 50px;
+  font-size: 2em; 
   border-radius: 12px;
-  box-shadow: 0 0 30px #ff00ff;
+  box-shadow: 0 0 35px #ff00ff;
   cursor: pointer;
   transition: 0.3s;
   margin-top: 25px;
   z-index: 4;
 }
 button:hover {
-  box-shadow: 0 0 60px #ff00ff;
+  box-shadow: 0 0 70px #ff00ff;
+}
+
+/* Poruke misteriozne */
+#mystery-msg {
+  font-size: 2.2em;
 }
 </style>
 </head>
@@ -121,71 +136,70 @@ button:hover {
 
 <h1>Surprise Mystérieuse</h1>
 
-<!-- Étoiles arrière -->
+<!-- Zvezde -->
 <div id="stars-back"></div>
 
-<!-- Sparkles autour de l'image -->
+<!-- Sparkles -->
 <div id="sparkles"></div>
 
-<!-- Image centrale -->
+<!-- Slika Jul -->
 <img class="center-image" src="téléchargement (10).jfif" alt="Jul">
 
-<!-- Étoiles avant -->
 <div id="stars-front"></div>
 
 <div class="teaser">
-  <p style="font-size:2em;" id="mystery-msg">Quelque chose de magique arrive… ✨</p>
+  <p id="mystery-msg">Quelque chose de magique arrive… ✨</p>
   <div class="countdown" id="countdown"></div>
   <button disabled>Ouvre le 5 mai à 20h</button>
 </div>
 
 <div class="content">
   <h2>🎉 C'est le moment ! 🎉</h2>
-  <p style="font-size:1.8em;">Participez au jeu concours et gagnez un cadeau exclusif !</p>
+  <p style="font-size:2em;">Participez au jeu concours et gagnez un cadeau exclusif !</p>
   <button onclick="alert('Félicitations ! 🎁')">Participer</button>
 </div>
 
 <script>
-// Génération des étoiles arrière
+// Pozadinske zvezde
 const starsBackCount = 200;
 for(let i=0;i<starsBackCount;i++){
   let star = document.createElement('div');
   star.className = 'star-back';
   star.style.top = Math.random()*100 + '%';
   star.style.left = Math.random()*100 + '%';
-  let size = Math.random()*4+2;
-  star.style.width = size + 'px';
-  star.style.height = size + 'px';
-  star.style.animationDuration = (Math.random()*3+1)+'s';
+  let size = Math.random()*5+3;
+  star.style.width = size+'px';
+  star.style.height = size+'px';
+  star.style.animationDuration = (Math.random()*4+2)+'s';
   document.body.appendChild(star);
 }
 
-// Génération des étoiles avant
+// Prednji sloj zvezda
 const starsFrontCount = 150;
 for(let i=0;i<starsFrontCount;i++){
   let star = document.createElement('div');
   star.className = 'star-front';
   star.style.top = Math.random()*100 + '%';
   star.style.left = Math.random()*100 + '%';
-  let size = Math.random()*4+2;
-  star.style.width = size + 'px';
-  star.style.height = size + 'px';
+  let size = Math.random()*5+3;
+  star.style.width = size+'px';
+  star.style.height = size+'px';
   star.style.animationDuration = (Math.random()*3+1)+'s';
   document.body.appendChild(star);
 }
 
-// Sparkles autour de l'image
-const sparkleCount = 30;
+// Sparkle efekti
+const sparkleCount = 40;
 for(let i=0;i<sparkleCount;i++){
   let sparkle = document.createElement('div');
   sparkle.className = 'sparkle';
-  sparkle.style.top = (100 + Math.random()*60) + 'px';
-  sparkle.style.left = (window.innerWidth/2 + Math.random()*200 - 100) + 'px';
+  sparkle.style.top = (100 + Math.random()*80) + 'px';
+  sparkle.style.left = (window.innerWidth/2 + Math.random()*250 - 125) + 'px';
   sparkle.style.animationDuration = (Math.random()*2+1)+'s';
   document.getElementById('sparkles').appendChild(sparkle);
 }
 
-// Messages mystérieux qui changent
+// Tajanstvene poruke
 const messages = [
   "Quelque chose de magique arrive… ✨",
   "Prépare-toi pour la surprise ! 🌙",
@@ -198,7 +212,7 @@ setInterval(()=>{
   document.getElementById('mystery-msg').innerText = messages[msgIndex];
 }, 4000);
 
-// Compte à rebours
+// Countdown
 function updateCountdown() {
     const now = new Date();
     const target = new Date("May 5, 2026 20:00:00");
