@@ -4,10 +4,65 @@
 <meta charset="UTF-8">
 <title>Tajanstvena nagrada</title>
 <style>
-body { text-align:center; font-family:sans-serif; background:#111; color:#fff; }
-.teaser, .content { display:none; }
-.countdown { font-size:2em; margin:20px; }
-button { padding:10px 20px; font-size:1.2em; cursor:pointer; }
+/* Osnovni stil */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #1e1e2f, #4b1e6f);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Efekat svetlucavih zvezda */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  0%,100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Odbrojavanje */
+.countdown {
+  font-size: 3em;
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
+  animation: glow 1s infinite alternate;
+  margin: 20px 0;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ff00ff; }
+  to { text-shadow: 0 0 20px #ff00ff; }
+}
+
+/* Teaser i sadržaj */
+.teaser, .content { display: none; }
+
+/* Dugmad */
+button {
+  background: #ff00ff;
+  border: none;
+  color: #fff;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ff00ff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  box-shadow: 0 0 25px #ff00ff;
+}
 </style>
 </head>
 <body>
@@ -27,6 +82,20 @@ button { padding:10px 20px; font-size:1.2em; cursor:pointer; }
 </div>
 
 <script>
+// Generisanje zvezda
+const starsCount = 100;
+for(let i=0;i<starsCount;i++){
+  let star = document.createElement('div');
+  star.className = 'star';
+  star.style.top = Math.random()*100 + '%';
+  star.style.left = Math.random()*100 + '%';
+  star.style.width = (Math.random()*2+1)+'px';
+  star.style.height = star.style.width;
+  star.style.animationDuration = (Math.random()*3+1)+'s';
+  document.body.appendChild(star);
+}
+
+// Odbrojavanje
 function updateCountdown() {
     const now = new Date();
     const target = new Date("May 5, 2026 20:00:00");
