@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Tajanstvena nagrada</title>
+<title>Surprise Mystérieuse</title>
 <style>
-/* Osnovni stil */
+/* Style de base */
 body {
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   text-align: center;
   color: #fff;
   overflow: hidden;
-  background: linear-gradient(135deg, #1e1e2f, #4b1e6f); /* misteriozni gradijent */
+  background: linear-gradient(135deg, #1e1e2f, #4b1e6f);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,15 +20,15 @@ body {
   min-height: 100vh;
 }
 
-/* Slika u sredini */
+/* Image centrale */
 .center-image {
-  margin-top: 80px; /* pomeranje sa vrha */
-  width: 250px;      /* veličina slike */
+  margin-top: 80px;
+  width: 250px;
   border-radius: 15px;
   box-shadow: 0 0 20px #ff00ff;
 }
 
-/* Efekat svetlucavih zvezda */
+/* Étoiles scintillantes */
 .star {
   position: absolute;
   width: 2px;
@@ -44,7 +44,7 @@ body {
   50% { opacity: 1; }
 }
 
-/* Odbrojavanje */
+/* Compte à rebours */
 .countdown {
   font-size: 4em; 
   color: #ff00ff;
@@ -58,13 +58,13 @@ body {
   to { text-shadow: 0 0 30px #ff00ff; }
 }
 
-/* Teaser i sadržaj */
+/* Teaser et contenu */
 .teaser, .content { display: none; }
 
 h1 {
   font-size: 2.5em;
   text-shadow: 0 0 15px #ff00ff;
-  margin-top: 20px; /* pomereno niže */
+  margin-top: 20px;
 }
 
 h2 {
@@ -73,7 +73,7 @@ h2 {
   margin-top: 20px;
 }
 
-/* Dugmad */
+/* Boutons */
 button {
   background: #ff00ff;
   border: none;
@@ -93,27 +93,26 @@ button:hover {
 </head>
 <body>
 
-<h1>Tajanstveno iznenađenje</h1>
+<h1>Surprise Mystérieuse</h1>
 
-<!-- Slika u sredini -->
-<<img class="center-image" src="téléchargement (10).jfif" alt="Jul">
->
+<!-- Image centrale -->
+<img class="center-image" src="téléchargement (10).jfif" alt="Jul">
 
 <div class="teaser">
-  <p style="font-size:1.5em;">Ne možemo ti još otkriti iznenađenje…</p>
+  <p style="font-size:1.5em;">Nous ne pouvons pas encore vous révéler la surprise…</p>
   <div class="countdown" id="countdown"></div>
-  <button disabled>Otvara se 5. maja 20h</button>
+  <button disabled>Ouvre le 5 mai à 20h</button>
 </div>
 
 <div class="content">
-  <h2>🎉 Sada je vreme! 🎉</h2>
-  <p style="font-size:1.5em;">Učestvuj u nagradnoj igri i osvoji ekskluzivni poklon!</p>
-  <button onclick="alert('Čestitamo! 🎁')">Učestvuj</button>
+  <h2>🎉 C'est le moment ! 🎉</h2>
+  <p style="font-size:1.5em;">Participez au jeu concours et gagnez un cadeau exclusif !</p>
+  <button onclick="alert('Félicitations ! 🎁')">Participer</button>
 </div>
 
 <script>
-// Generisanje zvezda
-const starsCount = 120;
+// Génération des étoiles
+const starsCount = 250; // plus d'étoiles pour un effet plus fort
 for(let i=0;i<starsCount;i++){
   let star = document.createElement('div');
   star.className = 'star';
@@ -125,7 +124,7 @@ for(let i=0;i<starsCount;i++){
   document.body.appendChild(star);
 }
 
-// Odbrojavanje
+// Compte à rebours
 function updateCountdown() {
     const now = new Date();
     const target = new Date("May 5, 2026 20:00:00");
@@ -137,7 +136,7 @@ function updateCountdown() {
         const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
         const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
         const seconds = Math.floor((diff % (1000*60)) / 1000);
-        document.getElementById('countdown').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById('countdown').innerText = `${days}j ${hours}h ${minutes}m ${seconds}s`;
     } else {
         document.querySelector('.teaser').style.display = 'none';
         document.querySelector('.content').style.display = 'block';
@@ -149,4 +148,3 @@ updateCountdown();
 
 </body>
 </html>
-
