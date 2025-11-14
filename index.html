@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Surprise Mystérieuse</title>
 <style>
-/* Style de base */
 body {
   margin: 0;
   padding: 0;
@@ -18,18 +17,21 @@ body {
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  perspective: 1000px;
 }
 
-/* Image centrale */
+/* Images centrales */
 .center-image {
-  margin-top: 100px; /* pomereno više prema dole */
+  margin-top: 100px;
   width: 280px;
   border-radius: 15px;
   box-shadow: 0 0 25px #ff00ff;
+  position: relative;
+  z-index: 2; /* Slika iznad pozadinskih zvezda */
 }
 
 /* Étoiles scintillantes */
-.star {
+.star-back, .star-front {
   position: absolute;
   width: 2px;
   height: 2px;
@@ -53,6 +55,7 @@ body {
   opacity: 0.8;
   transform: rotate(45deg);
   animation: shoot linear infinite;
+  z-index: 3; /* Shooting stars iznad slike */
 }
 
 @keyframes shoot {
@@ -68,6 +71,7 @@ body {
   text-shadow: 0 0 15px #ff00ff;
   animation: glow 1s infinite alternate;
   margin: 40px 0;
+  z-index: 4;
 }
 
 @keyframes glow {
@@ -82,12 +86,14 @@ h1 {
   font-size: 2.8em;
   text-shadow: 0 0 20px #ff00ff;
   margin-top: 20px;
+  z-index: 4;
 }
 
 h2 {
   font-size: 2.2em;
   text-shadow: 0 0 20px #00ffff;
   margin-top: 20px;
+  z-index: 4;
 }
 
 /* Boutons */
@@ -102,6 +108,7 @@ button {
   cursor: pointer;
   transition: 0.3s;
   margin-top: 20px;
+  z-index: 4;
 }
 button:hover {
   box-shadow: 0 0 40px #ff00ff;
@@ -112,8 +119,14 @@ button:hover {
 
 <h1>Surprise Mystérieuse</h1>
 
+<!-- Étoiles arrière -->
+<div id="stars-back"></div>
+
 <!-- Image centrale -->
 <img class="center-image" src="téléchargement (10).jfif" alt="Jul">
+
+<!-- Étoiles avant -->
+<div id="stars-front"></div>
 
 <div class="teaser">
   <p style="font-size:1.7em;">Nous ne pouvons pas encore vous révéler la surprise…</p>
@@ -128,11 +141,24 @@ button:hover {
 </div>
 
 <script>
-// Génération des étoiles
-const starsCount = 400; // plus d'étoiles pour un effet plus fort
-for(let i=0;i<starsCount;i++){
+// Génération des étoiles arrière
+const starsBackCount = 200;
+for(let i=0;i<starsBackCount;i++){
   let star = document.createElement('div');
-  star.className = 'star';
+  star.className = 'star-back';
+  star.style.top = Math.random()*100 + '%';
+  star.style.left = Math.random()*100 + '%';
+  star.style.width = (Math.random()*2+1)+'px';
+  star.style.height = star.style.width;
+  star.style.animationDuration = (Math.random()*3+1)+'s';
+  document.body.appendChild(star);
+}
+
+// Génération des étoiles avant
+const starsFrontCount = 150;
+for(let i=0;i<starsFrontCount;i++){
+  let star = document.createElement('div');
+  star.className = 'star-front';
   star.style.top = Math.random()*100 + '%';
   star.style.left = Math.random()*100 + '%';
   star.style.width = (Math.random()*2+1)+'px';
@@ -151,7 +177,7 @@ function createShootingStar() {
   document.body.appendChild(shootingStar);
   setTimeout(()=> shootingStar.remove(), 4000);
 }
-setInterval(createShootingStar, 3000);
+setInterval(createShootingStar, 2500);
 
 // Compte à rebours
 function updateCountdown() {
